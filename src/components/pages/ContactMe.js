@@ -1,34 +1,40 @@
 import { useState } from 'react';
 import Alert from '../Alert';
-import React from 'react'
+import React from 'react';
+import validator from 'validator';
 
 const containerStyle = ''
 const formContainerStyle = 'flex justify-center p-20';
 const formStyle = 'flex flex-col w-full';
-const inputStyle = 'rounded-lg border-2 border-black p-2 mb-5';
-const buttonStyle = `${inputStyle} p-2`;
-const messageStyle = `${inputStyle} h-48 px-5 py-10`;
-
+const inputStyleNoWarn = 'rounded-lg border-2 border-black p-2 mb-5';
+const inputStyleWarn = 'rounded-lg border-2 border-red-500 p-2 mb-5' 
+const buttonStyle = `${inputStyleNoWarn} p-2`;
+const messageStyle = `${inputStyleNoWarn} h-48 px-5 py-10`;
+const url = 'https://dmartin.herokuapp.com/messages';
 
 function ContactMe() {
 
 	const nameInput = {
 		value: useState(''),
 		wasClicked: useState(false),
-		isActive: useState(false)
+		isActive: useState(false),
+		style: useState(inputStyleNoWarn)
 	}
 
 	const emailInput = {
 		value: useState(''),
 		wasClicked: useState(false),
-		isActive: useState(false)
+		isActive: useState(false),
+		style: useState(inputStyleNoWarn)
 	}
 
 	const messageInput = {
 		value: useState(''),
 		wasClicked: useState(false),
-		isActive: useState(false)
+		isActive: useState(false),
+		style: useState(messageStyle)
 	}
+
 
 	// Get the appropriate input and it's states
 	function getInputHandler(e) {
@@ -51,23 +57,49 @@ function ContactMe() {
 	// Handle submit resets inputs and sends data to the server
 	function handleSubmit(e) {
 		e.preventDefault();
+
+		const messageInfo = {
+			name: nameInput.value[0],
+			email: emailInput.value[0],
+			message: messageInput.value[0]
+		}
+
+		async function sendMessage() {
+			const message = await fetch(url, {
+				method: 'POST',
+				body: JSON.stringify(messageInfo),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			console.log(message);
+
+			if (message.ok) {
+				console.log(await message.json())
+				console.log('Message sent!')
+			} else {
+				console.log('Message not sent!')
+			}
+		}
+
+		sendMessage();
+
 		nameInput.value[1]('');
+		nameInput.wasClicked[1](false);
 		emailInput.value[1]('');	
+		emailInput.wasClicked[1](false);
 		messageInput.value[1]('');	
+		messageInput.wasClicked[1](false);
 	}
 
-	// Change wasClicked status of input for displaying error message
-	function handleClick(e) {
-		const inputHandler = getInputHandler(e);
-		inputHandler.wasClicked[1](true);
-	}
 
-	// Change active status of an input
+	// Change active status of an input and set wasClicked to track whether error is displayed
 	function handleFocus(e) {
+		const {name, value} = e.target;
 		const inputHandler = getInputHandler(e);
 		e.type === "focus" 
 			? inputHandler.isActive[1](true)
-			: inputHandler.isActive[1](false);
+			: inputHandler.isActive[1](false) || inputHandler.wasClicked[1](true);
 	}
 
 	return (
@@ -76,7 +108,7 @@ function ContactMe() {
 				<form className={formStyle}>
 					{
 						nameInput.wasClicked[0] && nameInput.value[0] === ''
-							? <Alert inputName='Full Name'/>
+							? <Alert inputName='Full Name'/> 
 							: <></>
 					}
 					<input 
@@ -85,14 +117,14 @@ function ContactMe() {
 						type="text" 
 						placeholder="Name" 
 						onChange={handleChange} 
-						onClick={handleClick} 
 						onFocus={handleFocus}
-						onBlur={handleFocus} 
-						className={inputStyle}
+						onBlur={handleFocus}
+						className={nameInput.style[0]}
 					/>
 					{
-						emailInput.wasClicked[0] && emailInput.value[0] === ''
-							? <Alert inputName='Email'/>
+						(emailInput.wasClicked[0] && emailInput.value[0] === '') 
+							|| (emailInput.wasClicked[0] && !validator.isEmail(emailInput.value[0]))
+							? <Alert inputName='Valid email'/>
 							: <></>
 					}
 					<input 
@@ -101,10 +133,9 @@ function ContactMe() {
 						type="text" 
 						placeholder="Email"
 						onChange={handleChange}
-						onClick={handleClick}
 						onFocus={handleFocus}
 						onBlur={handleFocus} 
-						className={inputStyle}
+						className={emailInput.style[0]}
 					/>
 					{
 						messageInput.wasClicked[0] && messageInput.value[0] === ''
@@ -116,10 +147,9 @@ function ContactMe() {
 						name="message" 
 						placeholder="Message" 
 						onChange={handleChange} 
-						onClick={handleClick}
 						onFocus={handleFocus}
 						onBlur={handleFocus}
-						className={messageStyle}
+						className={messageInput.style[0]}
 					/>
 					<button type="button" onClick={handleSubmit} className={buttonStyle}>Send Message</button>
 				</form>
