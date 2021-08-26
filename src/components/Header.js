@@ -32,7 +32,7 @@ function Header() {
 				<h1 className={nameHeading}>Denzal Martin</h1>
 			</div>
 			<div>
-				<ul className="flex flex-wrap md: mt-5">
+				<ul className="flex flex-wrap justify-center md:mt-5">
 					{
 						navItems.map((navItem, i) => {
 							return (
