@@ -1,5 +1,5 @@
 import React from 'react';
-import { linkedInImage, githubDark, emailImage } from '../images';
+import { linkedInImage, githubDark, emailImage } from '../assets/images';
 
 const footerContainer = "w-100% flex justify-center items-center bg-green-300 p-10 mt-20"; 
 const link = "mx-5"

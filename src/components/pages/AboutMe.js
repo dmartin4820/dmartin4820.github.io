@@ -1,5 +1,5 @@
 import React from 'react';
-import {self} from '../../images';
+import {self} from '../../assets/images';
 
 const imgStyle = {
 	width: 200
