@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
-const headerContainer = 'flex items-end justify-evenly bg-green-300 p-10 text-white'; 
+const headerContainer = 'flex flex-col items-center xl:flex-row xl:items-end xl:justify-evenly bg-green-300 p-10 text-white'; 
 const nameHeading = 'text-6xl';
 const navItems = [
 	{
@@ -32,7 +32,7 @@ function Header() {
 				<h1 className={nameHeading}>Denzal Martin</h1>
 			</div>
 			<div>
-				<ul className="flex">
+				<ul className="flex flex-wrap md: mt-5">
 					{
 						navItems.map((navItem, i) => {
 							return (

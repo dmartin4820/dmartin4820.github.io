@@ -6,7 +6,7 @@ import ContactMe from './components/pages/ContactMe';
 import Projects from './components/pages/Projects';
 import Footer from './components/Footer';
 import Resume from './components/pages/Resume';
-import './index.css';
+
 
 function App() {
   return (

@@ -5,7 +5,7 @@ const imgStyle = {
 	width: 200
 }
 
-const aboutContainer = 'flex items-center mt-10 w-1/2';
+const aboutContainer = 'flex flex-col xl:flex-row items-center mt-10 p-5 sm:w-1/2';
 const aboutDesc = 'self-start';
 const img = 'border-4 border-green-900 rounded-lg mr-10';
 

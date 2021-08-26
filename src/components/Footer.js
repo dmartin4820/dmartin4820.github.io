@@ -1,7 +1,7 @@
 import React from 'react';
 import { linkedInImage, githubDark, emailImage } from '../assets/images';
 
-const footerContainer = "w-100% flex justify-center items-center bg-green-300 p-10 mt-20"; 
+const footerContainer = "w-100% mt-auto flex justify-center items-center bg-green-300 p-10 mt-20"; 
 const link = "mx-5"
 const linkStyle = {
 	width: '80px'
