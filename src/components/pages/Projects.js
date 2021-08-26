@@ -13,7 +13,7 @@ function Projects(props) {
 	}, [])
 
 	async function getProjects() {
-		const results = await fetch('/projects');
+		const results = await fetch('https://dmartin.herokuapp.com/projects');
 		const data = await results.json();
 		setProjects(data)
 	}
