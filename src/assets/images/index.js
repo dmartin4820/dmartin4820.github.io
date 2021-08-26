@@ -7,6 +7,7 @@ import jamMap from './jam_map_big.PNG';
 import weatherApp from './weather_app.gif';
 import eventArchitect from './e-a_demo.gif';
 import self from './self.JPG';
+import stack from './se-icon.png';
 
 export {
 	linkedInImage,
@@ -17,5 +18,6 @@ export {
 	weatherApp,
 	eventArchitect,
 	self,
-	githubLight
+	githubLight,
+	stack
 }
