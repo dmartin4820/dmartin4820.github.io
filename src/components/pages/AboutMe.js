@@ -6,7 +6,7 @@ const imgStyle = {
 }
 
 const aboutContainer = 'flex flex-col xl:flex-row items-center mt-10 p-5 sm:w-1/2';
-const aboutDesc = 'self-start';
+const aboutDesc = 'mt-5 xl:mt-0 self-start';
 const img = 'border-4 border-green-900 rounded-lg mr-10';
 
 function AboutMe() {

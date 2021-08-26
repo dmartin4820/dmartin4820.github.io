@@ -2,8 +2,8 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
-const headerContainer = 'flex flex-col items-center xl:flex-row xl:items-end xl:justify-evenly bg-green-300 p-10 text-white'; 
-const nameHeading = 'text-6xl';
+const headerContainer = 'flex flex-col items-center xl:flex-row xl:items-end xl:justify-evenly bg-green-300 sm:p-10 text-white'; 
+const nameHeading = 'text-5xl sm:text-6xl';
 const navItems = [
 	{
 		content: 'About Me',

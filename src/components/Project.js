@@ -7,7 +7,7 @@ const imgStyle = {
 const linkStyle ={
 	width: 40,
 }
-const projectCard = 'flex flex-col m-2 p-5 transition duration-100 ease-in-out hover:bg-green-300 rounded-lg hover:shadow-2xl hover:text-white transform hover:-translate-y-1';
+const projectCard = 'flex flex-col sm:m-2 sm:p-5 transition duration-100 ease-in-out hover:bg-green-300 rounded-lg hover:shadow-2xl hover:text-white transform hover:-translate-y-1';
 const heading = 'text-2xl mb-2 inline';
 const img = 'rounded-lg';
 const descContainer = 'p-2';

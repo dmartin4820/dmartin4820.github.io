@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import React from 'react';
 import Header from './components/Header';
 import AboutMe from './components/pages/AboutMe';
@@ -13,10 +13,13 @@ function App() {
 		<Router>
 			<div className="flex flex-col min-h-screen">
 				<Header />
-				<Route exact path='/' component={AboutMe}/>
-				<Route exact path='/contactMe' component={ContactMe}/>
-				<Route exact path='/portfolio' component={Projects}/>
-				<Route exact path='/resume' component={Resume}/>
+				<Switch>
+					<Route exact path='/' component={AboutMe}/>
+					<Route path='/contactMe' component={ContactMe}/>
+					<Route path='/portfolio' component={Projects}/>
+					<Route path='/resume' component={Resume}/>
+					<Route path='*' component={AboutMe}/>
+				</Switch>
 				<Footer />
 			</div>
 		</Router>
