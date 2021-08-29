@@ -3,12 +3,13 @@ import Alert from '../Alert';
 import React from 'react';
 import validator from 'validator';
 
-const containerStyle = ''
-const formContainerStyle = 'flex justify-center p-20';
+const containerStyle = 'flex justify-center'
+const formContainerStyle = 'flex justify-center p-20 w-1/2';
 const formStyle = 'flex flex-col w-full';
 const inputStyleNoWarn = 'rounded-lg border-2 border-black p-2 mb-5';
-const inputStyleWarn = 'rounded-lg border-2 border-red-500 p-2 mb-5' 
-const buttonStyle = `${inputStyleNoWarn} p-2`;
+const inputStyleWarn = 'rounded-lg border-2 border-red-500 p-2 mb-5';
+const buttonContainer = 'flex flex-col items-center' 
+const buttonStyle = `${inputStyleNoWarn} p-2 w-4/12`;
 const messageStyle = `${inputStyleNoWarn} h-48 px-5 py-10`;
 const url = 'https://dmartin.herokuapp.com/messages';
 
@@ -151,7 +152,11 @@ function ContactMe() {
 						onBlur={handleFocus}
 						className={messageInput.style[0]}
 					/>
-					<button type="button" onClick={handleSubmit} className={buttonStyle}>Send Message</button>
+					<div className={buttonContainer}>
+						<button type="button" onClick={handleSubmit} className={buttonStyle}>Send Message</button>
+						<p>Feel free to leave a message! I'll receive the message as an entry in a database on my external server</p>
+					</div>
+					
 				</form>
 			</div>
 		</div>
