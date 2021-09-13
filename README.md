@@ -1,70 +1,177 @@
-# Getting Started with Create React App
+# Portfolio in React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Visit my portfolio site!](https://dmartin4820.github.io/)
 
-## Available Scripts
+This is a version of my portfolio using React showcasing my interests, projects, and resume. The site also allows visitors to leave a message on the contact page which are sent to the server-side database for me to read.
 
-In the project directory, you can run:
+## Tailwind
 
-### `npm start`
+To style the site quickly and in a consistent way, I chose to use Tailwind CSS. The patter for styling I chose to follow was to create strings containing Tailwind specific classes for specific elements I wanted to style. As an example here is the header code:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```javascript
+const headerContainer =
+  "flex flex-col items-center xl:flex-row xl:items-end xl:justify-evenly bg-green-300 sm:p-10 text-white";
+const nameHeading = "text-5xl m-2 sm:m-0 sm:text-6xl";
+const navContainer = "m-2 md:m-0";
+const navList = "flex flex-col md:flex-row justify-center md:mt-5";
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```javascript
+function Header() {
+  const currLocation = useLocation();
 
-### `npm test`
+  return (
+    <div className={headerContainer}>
+      <div>
+        <h1 className={nameHeading}>Denzal Martin</h1>
+      </div>
+      <div className={navContainer}>
+        <ul className={navList}>
+          {navItems.map((navItem, i) => {
+            return (
+              <NavItem
+                content={navItem.content}
+                href={navItem.href}
+                active={currLocation.pathname}
+                key={i}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  );
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+With Tailwind, it's also easy to setup mobile friendly behavior. The prefixes sm, md, and xl specify breakpoints for certain styling. For example, sm is a breakpoint at 640px where widths above this will have the associated Tailwind class applied.
 
-### `npm run build`
+## Projects and Resume
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Currently, my projects and resume page are fetching data from server I setup for my previous portfolio. This allows me to maintain previous work I had where the skills were associated to projects using Sequelize. The issue with this is that it takes time to start up and subsequently the projects and resume page take a while to load. As a minor fix, I display text indicating loading, but I hope to reduce this load time by deploying completely on Heroku with a client and server together.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In order to make the projects page, I make a simple fetch, set state with data from the fetch, and display the projects:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```javascript
+	async function getProjects() {
+		const results = await fetch(url);
+		const data = await results.json();
+    setLoading(false);
+		setProjects(data)
+	}
+```
 
-### `npm run eject`
+```javascript
+return (
+		<div className={projectContainer}>
+			{loading 
+        ? 'Loading Projects...' 
+        : projects.map((project, i) => {
+				    return (
+				    	<Project
+				    		{...project}
+				    		key={i}
+				    	/>
+				)
+			})}
+		</div>
+	)
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The resume page is similar in implementation to the projects page.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contact Me Page
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The contact me page allows anyone visiting to send me a message that I can view in the server-side database. To do this, I implement basic form handling by creating objects holding a state variables and set methods for each input on the page:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```javascript
+const nameInput = {
+		value: useState(''),
+		wasClicked: useState(false),
+		isActive: useState(false),
+		style: useState(inputStyleNoWarn)
+	}
 
-## Learn More
+	const emailInput = {
+		value: useState(''),
+		wasClicked: useState(false),
+		isActive: useState(false),
+		style: useState(inputStyleNoWarn)
+	}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+	const messageInput = {
+		value: useState(''),
+		wasClicked: useState(false),
+		isActive: useState(false),
+		style: useState(messageStyle)
+	}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Handle change of input**
+By doing this I can keep track of each input and certain pieces of state associated with each input. Upon revisiting this, a generic input could be made such as a factory function that can make the code more DRY. To handle changes in a generic way, a function called `getInputHandler` is used to determine which input is being dealt with:
 
-### Code Splitting
+```javascript
+function getInputHandler(e) {
+		const {name} = e.target;
+		let input = {};	
+		name === "fullName" 
+			? input = nameInput
+			: name === "email" 
+				? input = emailInput
+				: input = messageInput
+		return input;	
+	}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+	// Changes value state 
+	function handleChange(e) {
+		const inputHandler = getInputHandler(e);
+		inputHandler.value[1](e.target.value)
+	}
+```
 
-### Analyzing the Bundle Size
+**Handle empty input fields**
+Whenever the user clicks into an input field and exits without entering anything, they are notified that the input is required to submit the message. This behavior is handled by using a function called `handleFocus` which uses the `isActive` state (i.e. user is currently focused on an input) and the `wasClicked` state of the input:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+	// Change active status of an input and set wasClicked to track whether error is displayed
+	function handleFocus(e) {
+		const {name, value} = e.target;
+		const inputHandler = getInputHandler(e);
+		e.type === "focus" 
+			? inputHandler.isActive[1](true)
+			: inputHandler.isActive[1](false) || inputHandler.wasClicked[1](true);
+	}
+  ```
 
-### Making a Progressive Web App
+ By setting both these boolean states, an `Alert` component can be conditionally rendered notifying the user that the input is required:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```javascript
+	{nameInput.wasClicked[0] && nameInput.value[0] === ''
+			? <Alert inputName='Full Name'/> 
+			: <></>
+	}
+	<input 
+		value={nameInput.value[0]} 
+		name="fullName" 
+		type="text" 
+		placeholder="Name" 
+		onChange={handleChange} 
+		onFocus={handleFocus}
+		onBlur={handleFocus}
+		className={nameInput.style[0]}
+	/>
+```
 
-### Advanced Configuration
+## Acknowledgements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Thank you to the UC Berkeley Bootcamp staff for providing the starter code for this site.
 
-### Deployment
+## Contributors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Denzal M.
 
-### `npm run build` fails to minify
+## Questions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Find my contact details at [GitHub](https://github.com/dmartin4820)
+
+Or contact by email: dom4822@yahoo.com
