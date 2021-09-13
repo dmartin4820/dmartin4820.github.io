@@ -7,18 +7,20 @@ const skillHeading = 'text-2xl font-bold text-green-900 self-start';
 const skillItem = 'list-disc pr-5';
 const list = 'px-10';
 const resume = 'text-2xl font-bold text-green-900 p-10';
-const url = 'https://dmartin.herokuapp.com/skills';
+// const url = 'https://dmartin.herokuapp.com/skills';
+const url = 'http://localhost:3001/skills'
 function Resume() {
 	const [skillList, setSkillList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		getSkills();
 	}, [])
 
 	async function getSkills() {
-		const skills = await fetch(url)
-
+		const skills = await fetch(url);
 		if (skills.ok) {
+      setLoading(false);
 			setSkillList(await skills.json());
 		} else {
 			console.log('Error getting skills');
@@ -27,14 +29,17 @@ function Resume() {
 
 	return (
 		<div className={skillsTop}>
-			<div className={skillsContainer}>
-				<h1 className={skillHeading}>Skills</h1>
-				<ul className={list}>
-						{skillList.map((skill,i) => {
-							return <li className={skillItem} key={i}>{skill.name}</li>
-						})}
-				</ul>
-			</div>
+			{loading 
+        ? 'Loading Skills...' 
+        : (<div className={skillsContainer}>
+			    	<h1 className={skillHeading}>Skills</h1>
+			    	<ul className={list}>
+			    			{skillList.map((skill,i) => {
+			    				return <li className={skillItem} key={i}>{skill.name}</li>
+			    			})}
+			    	</ul>
+			    </div>)
+      }
 			<a className={resume} href={resumeLink} target="_blank" rel="noreferrer">Link to Resume</a>
 		</div>
 	)
