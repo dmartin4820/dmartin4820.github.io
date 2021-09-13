@@ -7,7 +7,7 @@ const containerStyle = 'flex justify-center'
 const formContainerStyle = 'flex justify-center p-5 md:p-20 md:w-1/2';
 const formStyle = 'flex flex-col w-full';
 const inputStyleNoWarn = 'rounded-lg border-2 border-black p-2 mb-5';
-const inputStyleWarn = 'rounded-lg border-2 border-red-500 p-2 mb-5';
+// const inputStyleWarn = 'rounded-lg border-2 border-red-500 p-2 mb-5';
 const buttonContainer = 'flex flex-col items-center' 
 const buttonStyle = `${inputStyleNoWarn} p-2 w-4/12`;
 const messageStyle = `${inputStyleNoWarn} h-48 px-5 py-10`;
@@ -96,7 +96,7 @@ function ContactMe() {
 
 	// Change active status of an input and set wasClicked to track whether error is displayed
 	function handleFocus(e) {
-		const {name, value} = e.target;
+		// const {name, value} = e.target;
 		const inputHandler = getInputHandler(e);
 		e.type === "focus" 
 			? inputHandler.isActive[1](true)
