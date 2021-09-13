@@ -4,7 +4,7 @@ import React from 'react';
 import validator from 'validator';
 
 const containerStyle = 'flex justify-center'
-const formContainerStyle = 'flex justify-center p-20 w-1/2';
+const formContainerStyle = 'flex justify-center p-5 md:p-20 md:w-1/2';
 const formStyle = 'flex flex-col w-full';
 const inputStyleNoWarn = 'rounded-lg border-2 border-black p-2 mb-5';
 const inputStyleWarn = 'rounded-lg border-2 border-red-500 p-2 mb-5';

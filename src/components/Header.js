@@ -3,7 +3,9 @@ import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
 const headerContainer = 'flex flex-col items-center xl:flex-row xl:items-end xl:justify-evenly bg-green-300 sm:p-10 text-white'; 
-const nameHeading = 'text-5xl sm:text-6xl';
+const nameHeading = 'text-5xl m-2 sm:m-0 sm:text-6xl';
+const navContainer = 'm-2 md:m-0';
+const navList = 'flex flex-col md:flex-row justify-center md:mt-5'; 
 const navItems = [
 	{
 		content: 'About Me',
@@ -31,8 +33,8 @@ function Header() {
 			<div>
 				<h1 className={nameHeading}>Denzal Martin</h1>
 			</div>
-			<div>
-				<ul className="flex flex-wrap justify-center md:mt-5">
+			<div className={navContainer}>
+				<ul className={navList}>
 					{
 						navItems.map((navItem, i) => {
 							return (

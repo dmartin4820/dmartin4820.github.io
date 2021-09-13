@@ -7,8 +7,8 @@ const skillHeading = 'text-2xl font-bold text-green-900 self-start';
 const skillItem = 'list-disc pr-5';
 const list = 'px-10';
 const resume = 'text-2xl font-bold text-green-900 p-10';
-// const url = 'https://dmartin.herokuapp.com/skills';
-const url = 'http://localhost:3001/skills'
+const url = 'https://dmartin.herokuapp.com/skills';
+// const url = 'http://localhost:3001/skills'
 function Resume() {
 	const [skillList, setSkillList] = useState([]);
   const [loading, setLoading] = useState(true);
