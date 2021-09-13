@@ -164,7 +164,7 @@ Whenever the user clicks into an input field and exits without entering anything
 
 ## Acknowledgements
 
-Thank you to the UC Berkeley Bootcamp staff for providing the starter code for this site.
+Thank you to the UC Berkeley Bootcamp staff for providing the resources to build a React site.
 
 ## Contributors
 
