@@ -6,8 +6,10 @@ This is a version of my portfolio using React showcasing my interests, projects,
 
 ## Tailwind
 
-To style the site quickly and in a consistent way, I chose to use Tailwind CSS. The patter for styling I chose to follow was to create strings containing Tailwind specific classes for specific elements I wanted to style. As an example here is the header code:
+To style the site quickly and in a consistent way, I chose to use Tailwind CSS. The pattern for styling I chose to follow was to create strings containing Tailwind specific classes for specific elements I wanted to style. As an example below is the code for the portfolio header. 
 
+
+Define variables to hold Tailwind specific classes as strings.
 ```javascript
 const headerContainer =
   "flex flex-col items-center xl:flex-row xl:items-end xl:justify-evenly bg-green-300 sm:p-10 text-white";
@@ -15,7 +17,7 @@ const nameHeading = "text-5xl m-2 sm:m-0 sm:text-6xl";
 const navContainer = "m-2 md:m-0";
 const navList = "flex flex-col md:flex-row justify-center md:mt-5";
 ```
-
+Attach those Tailwind classes to the elements in the React component so that the styling is applied.
 ```javascript
 function Header() {
   const currLocation = useLocation();
@@ -48,7 +50,7 @@ With Tailwind, it's also easy to setup mobile friendly behavior. The prefixes sm
 
 ## Projects and Resume
 
-Currently, my projects and resume page are fetching data from server I setup for my previous portfolio. This allows me to maintain previous work I had where the skills were associated to projects using Sequelize. The issue with this is that it takes time to start up and subsequently the projects and resume page take a while to load. As a minor fix, I display text indicating loading, but I hope to reduce this load time by deploying completely on Heroku with a client and server together.
+Currently, my projects and resume page are fetching data from server I setup for my previous portfolio. This allows me to maintain previous work I had where the skills were associated to projects using Sequelize. The issue with this is that it takes time to start up and subsequently the projects and resume page take a while to load. As a temporary fix, I display text indicating loading, but I hope to reduce this load time by deploying completely on Heroku with a client and server together. This will also still take some time to load, but once the initial visit to the page is made, the projects and resume page should be available.
 
 In order to make the projects page, I make a simple fetch, set state with data from the fetch, and display the projects:
 
@@ -101,9 +103,10 @@ const messageInput = {
   style: useState(messageStyle),
 };
 ```
+By doing this I can keep track of each input and certain pieces of state associated with each input. Upon revisiting this, a generic input could be made such as a factory function that can make the code more DRY. 
 
-**Handle change of input**
-By doing this I can keep track of each input and certain pieces of state associated with each input. Upon revisiting this, a generic input could be made such as a factory function that can make the code more DRY. To handle changes in a generic way, a function called `getInputHandler` is used to determine which input is being dealt with:
+**Handle change of input:**
+To handle changes to a specific input element in a generic way, a function called `getInputHandler` is used to determine which input is being dealt with:
 
 ```javascript
 function getInputHandler(e) {
@@ -112,19 +115,19 @@ function getInputHandler(e) {
   name === "fullName"
     ? (input = nameInput)
     : name === "email"
-    ? (input = emailInput)
-    : (input = messageInput);
+      ? (input = emailInput)
+      : (input = messageInput);
   return input;
 }
 
 // Changes value state
 function handleChange(e) {
   const inputHandler = getInputHandler(e);
-  inputHandler.value[1](e.target.value);
+  inputHandler.value[1](e.target.value);//Set input state with user input
 }
 ```
 
-**Handle empty input fields**
+**Handle empty input fields:**
 Whenever the user clicks into an input field and exits without entering anything, they are notified that the input is required to submit the message. This behavior is handled by using a function called `handleFocus` which uses the `isActive` state (i.e. user is currently focused on an input) and the `wasClicked` state of the input:
 
 ```javascript
@@ -132,7 +135,7 @@ Whenever the user clicks into an input field and exits without entering anything
 function handleFocus(e) {
   const { name, value } = e.target;
   const inputHandler = getInputHandler(e);
-  e.type === "focus"
+  e.type === "focus" //Set active and wasClicked state if user clicks into input element
     ? inputHandler.isActive[1](true)
     : inputHandler.isActive[1](false) || inputHandler.wasClicked[1](true);
 }
@@ -142,11 +145,9 @@ By setting both these boolean states, an `Alert` component can be conditionally 
 
 ```javascript
 {
-  nameInput.wasClicked[0] && nameInput.value[0] === "" ? (
-    <Alert inputName="Full Name" />
-  ) : (
-    <></>
-  );
+  nameInput.wasClicked[0] && nameInput.value[0] === "" 
+    ? <Alert inputName="Full Name" /> 
+    : <></>;
 }
 <input
   value={nameInput.value[0]}
