@@ -53,29 +53,24 @@ Currently, my projects and resume page are fetching data from server I setup for
 In order to make the projects page, I make a simple fetch, set state with data from the fetch, and display the projects:
 
 ```javascript
-	async function getProjects() {
-		const results = await fetch(url);
-		const data = await results.json();
-    setLoading(false);
-		setProjects(data)
-	}
+async function getProjects() {
+  const results = await fetch(url);
+  const data = await results.json();
+  setLoading(false);
+  setProjects(data);
+}
 ```
 
 ```javascript
 return (
-		<div className={projectContainer}>
-			{loading 
-        ? 'Loading Projects...' 
-        : projects.map((project, i) => {
-				    return (
-				    	<Project
-				    		{...project}
-				    		key={i}
-				    	/>
-				)
-			})}
-		</div>
-	)
+  <div className={projectContainer}>
+    {loading
+      ? "Loading Projects..."
+      : projects.map((project, i) => {
+          return <Project {...project} key={i} />;
+        })}
+  </div>
+);
 ```
 
 The resume page is similar in implementation to the projects page.
@@ -86,25 +81,25 @@ The contact me page allows anyone visiting to send me a message that I can view 
 
 ```javascript
 const nameInput = {
-		value: useState(''),
-		wasClicked: useState(false),
-		isActive: useState(false),
-		style: useState(inputStyleNoWarn)
-	}
+  value: useState(""),
+  wasClicked: useState(false),
+  isActive: useState(false),
+  style: useState(inputStyleNoWarn),
+};
 
-	const emailInput = {
-		value: useState(''),
-		wasClicked: useState(false),
-		isActive: useState(false),
-		style: useState(inputStyleNoWarn)
-	}
+const emailInput = {
+  value: useState(""),
+  wasClicked: useState(false),
+  isActive: useState(false),
+  style: useState(inputStyleNoWarn),
+};
 
-	const messageInput = {
-		value: useState(''),
-		wasClicked: useState(false),
-		isActive: useState(false),
-		style: useState(messageStyle)
-	}
+const messageInput = {
+  value: useState(""),
+  wasClicked: useState(false),
+  isActive: useState(false),
+  style: useState(messageStyle),
+};
 ```
 
 **Handle change of input**
@@ -112,54 +107,57 @@ By doing this I can keep track of each input and certain pieces of state associa
 
 ```javascript
 function getInputHandler(e) {
-		const {name} = e.target;
-		let input = {};	
-		name === "fullName" 
-			? input = nameInput
-			: name === "email" 
-				? input = emailInput
-				: input = messageInput
-		return input;	
-	}
+  const { name } = e.target;
+  let input = {};
+  name === "fullName"
+    ? (input = nameInput)
+    : name === "email"
+    ? (input = emailInput)
+    : (input = messageInput);
+  return input;
+}
 
-	// Changes value state 
-	function handleChange(e) {
-		const inputHandler = getInputHandler(e);
-		inputHandler.value[1](e.target.value)
-	}
+// Changes value state
+function handleChange(e) {
+  const inputHandler = getInputHandler(e);
+  inputHandler.value[1](e.target.value);
+}
 ```
 
 **Handle empty input fields**
 Whenever the user clicks into an input field and exits without entering anything, they are notified that the input is required to submit the message. This behavior is handled by using a function called `handleFocus` which uses the `isActive` state (i.e. user is currently focused on an input) and the `wasClicked` state of the input:
 
 ```javascript
-	// Change active status of an input and set wasClicked to track whether error is displayed
-	function handleFocus(e) {
-		const {name, value} = e.target;
-		const inputHandler = getInputHandler(e);
-		e.type === "focus" 
-			? inputHandler.isActive[1](true)
-			: inputHandler.isActive[1](false) || inputHandler.wasClicked[1](true);
-	}
-  ```
+// Change active status of an input and set wasClicked to track whether error is displayed
+function handleFocus(e) {
+  const { name, value } = e.target;
+  const inputHandler = getInputHandler(e);
+  e.type === "focus"
+    ? inputHandler.isActive[1](true)
+    : inputHandler.isActive[1](false) || inputHandler.wasClicked[1](true);
+}
+```
 
- By setting both these boolean states, an `Alert` component can be conditionally rendered notifying the user that the input is required:
+By setting both these boolean states, an `Alert` component can be conditionally rendered notifying the user that the input is required:
 
 ```javascript
-	{nameInput.wasClicked[0] && nameInput.value[0] === ''
-			? <Alert inputName='Full Name'/> 
-			: <></>
-	}
-	<input 
-		value={nameInput.value[0]} 
-		name="fullName" 
-		type="text" 
-		placeholder="Name" 
-		onChange={handleChange} 
-		onFocus={handleFocus}
-		onBlur={handleFocus}
-		className={nameInput.style[0]}
-	/>
+{
+  nameInput.wasClicked[0] && nameInput.value[0] === "" ? (
+    <Alert inputName="Full Name" />
+  ) : (
+    <></>
+  );
+}
+<input
+  value={nameInput.value[0]}
+  name="fullName"
+  type="text"
+  placeholder="Name"
+  onChange={handleChange}
+  onFocus={handleFocus}
+  onBlur={handleFocus}
+  className={nameInput.style[0]}
+/>;
 ```
 
 ## Acknowledgements
