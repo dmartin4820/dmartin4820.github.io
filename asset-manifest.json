@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.2ba6d00b.chunk.css",
-    "main.js": "/static/js/main.6bed6f2b.chunk.js",
-    "main.js.map": "/static/js/main.6bed6f2b.chunk.js.map",
+    "main.js": "/static/js/main.1ac38717.chunk.js",
+    "main.js.map": "/static/js/main.1ac38717.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.7545a8a1.js",
     "runtime-main.js.map": "/static/js/runtime-main.7545a8a1.js.map",
     "static/js/2.435fe05f.chunk.js": "/static/js/2.435fe05f.chunk.js",
@@ -11,7 +11,7 @@
     "static/css/main.2ba6d00b.chunk.css.map": "/static/css/main.2ba6d00b.chunk.css.map",
     "static/js/2.435fe05f.chunk.js.LICENSE.txt": "/static/js/2.435fe05f.chunk.js.LICENSE.txt",
     "static/media/code_quiz.2d1b1c5b.gif": "/static/media/code_quiz.2d1b1c5b.gif",
-    "static/media/denzal_m_resume.cfdb1006.pdf": "/static/media/denzal_m_resume.cfdb1006.pdf",
+    "static/media/denzal_m_resume_20210920_master.71e3d011.pdf": "/static/media/denzal_m_resume_20210920_master.71e3d011.pdf",
     "static/media/e-a_demo.ac34a3a4.gif": "/static/media/e-a_demo.ac34a3a4.gif",
     "static/media/email.aa4dd5d0.png": "/static/media/email.aa4dd5d0.png",
     "static/media/jam_map_big.60f151b4.PNG": "/static/media/jam_map_big.60f151b4.PNG",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.7545a8a1.js",
     "static/js/2.435fe05f.chunk.js",
     "static/css/main.2ba6d00b.chunk.css",
-    "static/js/main.6bed6f2b.chunk.js"
+    "static/js/main.1ac38717.chunk.js"
   ]
 }
