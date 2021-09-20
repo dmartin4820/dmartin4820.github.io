@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import resumeLink from '../../assets/resume/denzal_m_resume.pdf';
+import resumeLink from '../../assets/resume/denzal_m_resume_20210920_master.pdf';
 
 const skillsTop = 'flex flex-col items-center mt-10';
 const skillsContainer = ''
