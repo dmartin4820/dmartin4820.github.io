@@ -79,7 +79,7 @@ The resume page is similar in implementation to the projects page.
 
 ## Contact Me Page
 
-The contact me page allows anyone visiting to send me a message that I can view in the server-side database. To do this, I implement basic form handling by creating objects holding a state variables and set methods for each input on the page:
+The contact me page allows anyone visiting to send me a message that I can view in the server-side database (currently disabled). To do this, I implement basic form handling by creating objects holding a state variables and set methods for each input on the page:
 
 ```javascript
 const nameInput = {
