@@ -59,31 +59,36 @@ function ContactMe() {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		const messageInfo = {
-			name: nameInput.value[0],
-			email: emailInput.value[0],
-			message: messageInput.value[0]
-		}
+    const fake = true //Hard coded value to disable actual sending of messages
+    if (!fake) {
+		  const messageInfo = {
+		  	name: nameInput.value[0],
+		  	email: emailInput.value[0],
+		  	message: messageInput.value[0]
+		  }
 
-		async function sendMessage() {
-			const message = await fetch(url, {
-				method: 'POST',
-				body: JSON.stringify(messageInfo),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			console.log(message);
+		  async function sendMessage() {
+		  	const message = await fetch(url, {
+		  		method: 'POST',
+		  		body: JSON.stringify(messageInfo),
+		  		headers: {
+		  			'Content-Type': 'application/json'
+		  		}
+		  	});
+		  	console.log(message);
 
-			if (message.ok) {
-				console.log(await message.json())
-				console.log('Message sent!')
-			} else {
-				console.log('Message not sent!')
-			}
-		}
+		  	if (message.ok) {
+		  		console.log(await message.json())
+		  		console.log('Message sent!')
+		  	} else {
+		  		console.log('Message not sent!')
+		  	}
+		  }
 
-		sendMessage();
+		  sendMessage();
+    } else {
+      alert('Message sent! Thanks!')
+    }
 
 		nameInput.value[1]('');
 		nameInput.wasClicked[1](false);
@@ -153,8 +158,9 @@ function ContactMe() {
 						className={messageInput.style[0]}
 					/>
 					<div className={buttonContainer}>
-						<button type="button" onClick={handleSubmit} className={buttonStyle}>Send Message</button>
-						<p>Feel free to leave a message! I'll receive the message as an entry in a database on my external server</p>
+            <button type="button" onClick={handleSubmit} className={buttonStyle}>Send Message</button>
+						{/* <button type="button" onClick={handleSubmit} className={buttonStyle}>Send Message</button> */}
+						{/* <p>Feel free to leave a message! I'll receive the message as an entry in a database on my external server</p> */}
 					</div>
 					
 				</form>
