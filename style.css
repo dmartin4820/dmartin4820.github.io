@@ -73,3 +73,11 @@ section {
   align-items: center;
   grid-area: navitems;
 }
+
+.under-construction {
+  font-size: 60px;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}

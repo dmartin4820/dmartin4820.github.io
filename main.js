@@ -1,25 +1,6 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+// document.querySelectorAll('section')
+document.querySelector("body").innerHTML = `
+<div class="under-construction">still workin' on it...</div>`
+document.querySelector("body").style.backgroundColor = "#242424"
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <header class="">
-        <nav class="">
-          <div class="">
-            <h1>Denzal Martin</h1>
-          </div>
-          <div class="">
-            <ul>
-              <a>Hello</a>
-            </ul>
-          </div>
-        </nav>
-    	</header>
-  </div>
-`
-
-document.querySelectorAll('section').
-
-setupCounter(document.querySelector('#counter'))
+console.log(document.querySelector("body").className)
